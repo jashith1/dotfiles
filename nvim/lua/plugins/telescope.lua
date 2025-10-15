@@ -1,12 +1,17 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.5", -- or omit for latest
+    tag = "0.1.5",
+    cmd = "Telescope",            -- lazy load on :Telescope command
+    keys = {
+      { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find Files" },
+      { "<leader>fg", function() require("telescope.builtin").live_grep() end,  desc = "Live Grep" },
+    },
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      "nvim-tree/nvim-web-devicons", -- for file icons
-      "nvim-treesitter/nvim-treesitter", -- for previews
+      "nvim-tree/nvim-web-devicons",
+      "nvim-treesitter/nvim-treesitter",
     },
     config = function()
       local telescope = require("telescope")
