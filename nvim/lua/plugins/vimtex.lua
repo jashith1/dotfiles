@@ -20,6 +20,15 @@ return {
 
       -- Don’t auto-open any PDF viewer
       vim.g.vimtex_view_enabled = 0
+
+      --auto start compilation
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "tex",
+        callback = function()
+          vim.cmd("VimtexCompile")
+        end,
+      })
+
     end,
   },
 }
