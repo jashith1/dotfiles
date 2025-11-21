@@ -2,11 +2,38 @@ profile undocked {
     output eDP-1 mode 1920x1200@120 position 0,0 scale 1.25
 }
 
+profile undocked {
+    output eDP-2 mode 1920x1200@120 position 0,0 scale 1.25
+}
+
 profile docked {
-    output "DP-1" mode 3840x2160@240 position 0,0 scale 1.666666
-    #output HDMI-A-1 mode 3840x2160@120 position 0,0 scale 1.666666
-    #output eDP-1 disable
+    output DP-1 mode 3840x2160@240 position 0,0 scale 1.666666
     output eDP-2 disable
+}
+
+profile docked {
+    output HDMI-A-1 mode 3840x2160@120 position 0,0 scale 1.666666
+    output eDP-2 disable
+}
+
+profile docked {
+    output DP-3 mode 3840x2160@120 position 0,0 scale 1.666666
+    output eDP-2 disable
+}
+
+profile docked {
+    output DP-1 mode 3840x2160@240 position 0,0 scale 1.666666
+    output eDP-1 disable
+}
+
+profile docked {
+    output HDMI-A-1 mode 3840x2160@120 position 0,0 scale 1.666666
+    output eDP-1 disable
+}
+
+profile docked {
+    output DP-3 mode 3840x2160@120 position 0,0 scale 1.666666
+    output eDP-1 disable
 }
 
 #if specified monitor does not exist, kanshi will not work at all (at least for that specific profile)
