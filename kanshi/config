@@ -3,9 +3,9 @@ profile undocked {
 }
 
 profile docked {
-    output "DP-3" mode 3840x2160@240 position 0,0 scale 1.666666
     output "DP-1" mode 3840x2160@240 position 0,0 scale 1.666666
-    output eDP-1 disable
+    #output HDMI-A-1 mode 3840x2160@120 position 0,0 scale 1.666666
+    #output eDP-1 disable
     output eDP-2 disable
 }
 
