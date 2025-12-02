@@ -1,40 +1,100 @@
+// ────────── Waybar Config ──────────
+
 {
-    "spacing": 4, // Gaps between modules (px)
- 
-    "modules-left": [
-        "hyprland/workspaces"
-    ],
-    "modules-center": [
-        "clock"
-    ],
-    "modules-right": [
-        "battery"
-    ],
+  "layer": "top",
+  "position": "top",
+  "spacing": 0,
+  "height": 26,
+  "fixed-center": true,
 
-    "hyprland/workspaces": {
-        "persistent-workspaces": {
-            "*": 5
-        }
+  "modules-left": ["hyprland/workspaces"],
+
+  "modules-center": ["clock"],
+
+  "modules-right": [
+    "tray",
+    "network",
+    "wireplumber",
+    "battery"
+  ],
+
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9"
     },
-
-    "clock": {
-
-    },
-
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        }, 
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-icons": [
-            " ",
-            " ",
-            " ",
-            " ",
-            " "
-        ]
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
     }
+  },
+
+  "tray": {
+    "spacing": 10,
+    "icon-size": 16
+  },
+
+  "clock": {
+    "tooltip-format": "{calendar}",
+    "format": "  {:%I:%M %p}",
+    "format-alt": "  {:%a, %d %b %Y}"
+  },
+
+  "network": {
+    "format-wifi": "{icon}",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰖪",
+
+    "tooltip-format-wifi": "{icon} {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+
+    "on-click": "kitty --title nmclii -e nmcli",
+
+    "interval": 5,
+    "nospacing": 1
+  },
+
+  "wireplumber": {
+    "format": "{icon}",
+    "format-bluetooth": "󰂰",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphone": "",
+      "default": ["󰖀", "󰕾", ""]
+    },
+    "tooltip-format": "Volume : {volume}%",
+    "on-click": "pavucontrol",
+    "scroll-step": 1,
+    "nospacing": 1
+  },
+
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": {
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+    "format-full": "Charged ",
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "tooltip": false
+  },
 }
