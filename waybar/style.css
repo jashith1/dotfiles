@@ -1,6 +1,6 @@
 /* ────────── Waybar Styles ────────── */
 
- * {
+* {
   border: none;
   border-radius: 0;
   min-height: 0;
@@ -9,13 +9,13 @@
 }
 
 window#waybar {
-  background-color: #1e1e2e;
+  background-color: transparent;
   transition-property: background-color, opacity;
   transition-duration: 0.25s;
 }
 
 window#waybar.hidden {
-  opacity: 0.0;
+  opacity: 0;
 }
 
 #workspaces {
@@ -139,4 +139,3 @@ tooltip label {
   background-color: transparent;
   color: #cdd6f4;
 }
-
