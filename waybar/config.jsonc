@@ -56,7 +56,7 @@
     "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
 
-    "on-click": "kitty --title nmclii -e nmcli",
+    "on-click": "nmtui",
 
     "interval": 5,
     "nospacing": 1
