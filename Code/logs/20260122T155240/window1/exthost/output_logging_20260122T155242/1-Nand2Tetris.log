@@ -1,0 +1,33 @@
+[Running] Nand.hdl
+In HDL file /home/bloppai/Downloads/GLE1code/Nand.hdl, Line 15, A pin name is expected: load Nand.hdl 
+
+[Done] Comparison Failure with code=255 in 0.205 seconds
+
+[Running] Nand.hdl
+Comparison failure at line 4
+
+[Done] Comparison Failure with code=255 in 0.165 seconds
+
+[Running] Nand.hdl
+Comparison failure at line 2
+
+[Done] Comparison Failure with code=255 in 0.182 seconds
+
+[Running] Nor.hdl
+/home/bloppai/Downloads/GLE1code/Nor.tst doesn't exist
+
+[Done] Comparison Failure with code=255 in 0.177 seconds
+
+[Running] Nor.hdl
+/home/bloppai/Downloads/GLE1code/Nor.tst doesn't exist
+
+[Done] Comparison Failure with code=255 in 0.143 seconds
+
+[Running] Nand.hdl
+In HDL file /home/bloppai/Downloads/GLE1code/Nand.hdl, Line 17, Missing ';': load Nand.hdl 
+
+[Done] Comparison Failure with code=255 in 0.17 seconds
+
+[Running] Nand.hdl
+[Done] Comparison Successfully with code=0 in 0.183 seconds
+

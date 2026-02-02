@@ -1,0 +1,6 @@
+2026-01-22 15:52:41.936 [info] ChatSessionStore: Migrating 0 chat sessions from storage service to file system
+2026-01-22 15:52:42.184 [info] Started local extension host with pid 12549.
+2026-01-22 15:52:43.003 [info] MCP Registry configured: https://api.mcp.github.com
+2026-01-22 15:52:43.052 [info] Settings Sync: Account status changed from uninitialized to unavailable
+2026-01-22 15:52:44.901 [info] [perf] Render performance baseline is 34ms
+2026-01-22 16:14:12.233 [error] lock() request could not be registered.: InvalidStateError: lock() request could not be registered.

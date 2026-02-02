@@ -1,0 +1,4 @@
+2026-01-23 12:06:25.247 [info] Started local extension host with pid 6661.
+2026-01-23 12:06:25.284 [info] ChatSessionStore: Migrating 0 chat sessions from storage service to file system
+2026-01-23 12:06:25.566 [info] MCP Registry configured: https://api.mcp.github.com
+2026-01-23 12:06:25.627 [info] Settings Sync: Account status changed from uninitialized to unavailable

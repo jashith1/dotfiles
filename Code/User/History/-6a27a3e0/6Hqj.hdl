@@ -1,0 +1,18 @@
+// GLE1 for CSCE312
+// Jashith Raghavendra, 935003733
+
+/**
+ * Nand gate:
+ * if (a and b) out = 0, else out = 1
+ */
+
+CHIP Nand {
+    IN a, b;
+    OUT out;
+    
+    PARTS:
+    //// Task: Build a NAND chip using only NOR gates.
+    Nor(a=a, b=false, out=out1);
+    Nor(a=false, b=b, out=out2);
+    Nor(a=out1, b=out2, out=out);
+}

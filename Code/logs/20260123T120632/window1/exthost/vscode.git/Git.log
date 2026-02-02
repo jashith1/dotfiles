@@ -1,0 +1,59 @@
+2026-01-23 12:06:41.707 [info] [main] Log level: Info
+2026-01-23 12:06:41.707 [info] [main] Validating found git in: "git"
+2026-01-23 12:06:41.707 [info] [main] Using git "2.51.2" from "git"
+2026-01-23 12:06:41.707 [info] [Model][doInitialScan] Initial repository scan started
+2026-01-23 12:06:41.707 [info] > git rev-parse --show-toplevel [5ms]
+2026-01-23 12:06:41.710 [info] > git rev-parse --git-dir --git-common-dir --show-superproject-working-tree [5ms]
+2026-01-23 12:06:41.720 [info] [Model][openRepository] Opened repository (path): /home/bloppai/programming/tamu/CSCE221/leyk-csce221-assignment-vector
+2026-01-23 12:06:41.720 [info] [Model][openRepository] Opened repository (real path): /home/bloppai/programming/tamu/CSCE221/leyk-csce221-assignment-vector
+2026-01-23 12:06:41.720 [info] [Model][openRepository] Opened repository (kind): repository
+2026-01-23 12:06:41.736 [info] > git rev-parse --show-toplevel [2ms]
+2026-01-23 12:06:41.736 [info] > git config --get commit.template [9ms]
+2026-01-23 12:06:41.750 [info] > git rev-parse --show-toplevel [8ms]
+2026-01-23 12:06:41.752 [info] [Model][doInitialScan] Initial repository scan completed - repositories (1), closed repositories (0), parent repositories (0), unsafe repositories (0)
+2026-01-23 12:06:41.753 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [5ms]
+2026-01-23 12:06:41.758 [warning] [Git][revParse] Unable to read file: ENOENT: no such file or directory, open '/home/bloppai/programming/tamu/CSCE221/leyk-csce221-assignment-vector/.git/refs/remotes/origin/main'
+2026-01-23 12:06:41.760 [info] > git rev-parse refs/remotes/origin/main [2ms]
+2026-01-23 12:06:41.775 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [3ms]
+2026-01-23 12:06:41.777 [info] > git status -z -uall [11ms]
+2026-01-23 12:06:41.804 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [8ms]
+2026-01-23 12:06:41.817 [info] > git config --get --local branch.main.vscode-merge-base [6ms]
+2026-01-23 12:06:41.817 [warning] [Git][config] git config failed: Failed to execute git
+2026-01-23 12:06:41.822 [info] > git config --get commit.template [19ms]
+2026-01-23 12:06:41.829 [info] > git reflog main --grep-reflog=branch: Created from *. [8ms]
+2026-01-23 12:06:41.841 [info] > git symbolic-ref --short refs/remotes/origin/HEAD [6ms]
+2026-01-23 12:06:41.846 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [6ms]
+2026-01-23 12:06:41.852 [warning] [Git][revParse] Unable to read file: ENOENT: no such file or directory, open '/home/bloppai/programming/tamu/CSCE221/leyk-csce221-assignment-vector/.git/refs/remotes/origin/main'
+2026-01-23 12:06:41.852 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/origin/main refs/remotes/origin/main [7ms]
+2026-01-23 12:06:41.858 [info] > git rev-parse refs/remotes/origin/main [6ms]
+2026-01-23 12:06:41.869 [info] > git status -z -uall [6ms]
+2026-01-23 12:06:41.869 [info] > git config --add --local branch.main.vscode-merge-base origin/main [11ms]
+2026-01-23 12:06:41.869 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [1ms] (cancelled)
+2026-01-23 12:06:41.878 [info] > git config --get commit.template [1ms]
+2026-01-23 12:06:41.886 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [2ms]
+2026-01-23 12:06:41.891 [warning] [Git][revParse] Unable to read file: ENOENT: no such file or directory, open '/home/bloppai/programming/tamu/CSCE221/leyk-csce221-assignment-vector/.git/refs/remotes/origin/main'
+2026-01-23 12:06:41.893 [info] > git rev-parse refs/remotes/origin/main [2ms]
+2026-01-23 12:06:41.903 [info] > git status -z -uall [6ms]
+2026-01-23 12:06:41.905 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [2ms]
+2026-01-23 12:06:41.919 [info] > git merge-base refs/heads/main refs/remotes/origin/main [7ms]
+2026-01-23 12:06:41.926 [info] > git merge-base refs/heads/main refs/remotes/origin/main [8ms]
+2026-01-23 12:06:41.932 [info] > git diff --name-status -z --diff-filter=ADMR --find-renames=50% c47ecfca101a5d06ee55c13a53913e4072fd95e3...refs/remotes/origin/main -- [8ms]
+2026-01-23 12:06:41.933 [info] > git diff --name-status -z --diff-filter=ADMR --find-renames=50% c47ecfca101a5d06ee55c13a53913e4072fd95e3...refs/remotes/origin/main -- [2ms]
+2026-01-23 12:06:42.245 [info] > git check-ignore -v -z --stdin [2ms]
+2026-01-23 12:06:42.950 [info] > git config --get commit.template [7ms]
+2026-01-23 12:06:42.951 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [2ms]
+2026-01-23 12:06:42.956 [warning] [Git][revParse] Unable to read file: ENOENT: no such file or directory, open '/home/bloppai/programming/tamu/CSCE221/leyk-csce221-assignment-vector/.git/refs/remotes/origin/main'
+2026-01-23 12:06:42.957 [info] > git rev-parse refs/remotes/origin/main [1ms]
+2026-01-23 12:06:42.967 [info] > git status -z -uall [5ms]
+2026-01-23 12:06:42.969 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [2ms]
+2026-01-23 12:06:43.265 [info] > git check-ignore -v -z --stdin [1ms]
+2026-01-23 12:06:44.004 [info] > git show --textconv :src/Vector.h [6ms]
+2026-01-23 12:06:44.005 [info] > git ls-files --stage -- src/Vector.h [2ms]
+2026-01-23 12:06:44.011 [info] > git cat-file -s 85ff4fad73b95015bea2bb0208550bb71ce9187f [2ms]
+2026-01-23 12:07:47.825 [info] > git blame --root --incremental c47ecfca101a5d06ee55c13a53913e4072fd95e3 -- src/Vector.h [3ms]
+2026-01-23 12:10:00.577 [info] > git config --get commit.template [7ms]
+2026-01-23 12:10:00.578 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [1ms]
+2026-01-23 12:10:00.583 [warning] [Git][revParse] Unable to read file: ENOENT: no such file or directory, open '/home/bloppai/programming/tamu/CSCE221/leyk-csce221-assignment-vector/.git/refs/remotes/origin/main'
+2026-01-23 12:10:00.584 [info] > git rev-parse refs/remotes/origin/main [2ms]
+2026-01-23 12:10:00.596 [info] > git status -z -uall [7ms]
+2026-01-23 12:10:00.597 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [2ms]

@@ -11,3 +11,5 @@ vim.opt.softtabstop = 4
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- yank to clipboard
+vim.opt.clipboard:append("unnamedplus")

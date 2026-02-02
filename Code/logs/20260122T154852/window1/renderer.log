@@ -1,0 +1,7 @@
+2026-01-22 15:48:54.477 [info] ChatSessionStore: Migrating 0 chat sessions from storage service to file system
+2026-01-22 15:48:54.608 [info] Started local extension host with pid 11494.
+2026-01-22 15:48:54.632 [info] Started initializing default profile extensions in extensions installation folder. file:///home/bloppai/.vscode/extensions
+2026-01-22 15:48:54.774 [info] Completed initializing default profile extensions in extensions installation folder. file:///home/bloppai/.vscode/extensions
+2026-01-22 15:48:55.216 [info] MCP Registry configured: https://api.mcp.github.com
+2026-01-22 15:48:55.353 [info] Settings Sync: Account status changed from uninitialized to unavailable
+2026-01-22 15:48:57.921 [info] [perf] Render performance baseline is 32ms

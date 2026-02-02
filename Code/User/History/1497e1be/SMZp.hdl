@@ -1,0 +1,16 @@
+// GLE1 for CSCE312
+
+/**
+ * Nor gate:
+ * if (a or b) out = 0, else out = 1
+ */
+
+//// This chip is already implemented!
+CHIP Nor {
+    IN a, b;
+    OUT out;
+    
+    PARTS:
+    Or(a=a, b=b, out=out1);
+    Not(in=out1, out=out);
+}
