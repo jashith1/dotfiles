@@ -1,0 +1,150 @@
+-- return {}
+return {
+  'mfussenegger/nvim-dap',
+  dependencies = {
+    {
+      'igorlfs/nvim-dap-view',
+      opts = {
+        winbar = {
+          sections = { 'watches', 'scopes', 'breakpoints', 'threads', 'exceptions', 'repl', 'console' },
+          default_section = 'scopes',
+        },
+        -- windows = { height = 18 },
+        -- When jumping through the call stack, try to switch to the buffer if already open in
+        -- a window, else use the last window to open the buffer.
+        switchbuf = 'usetab,uselast',
+      },
+    },
+    'mfussenegger/nvim-dap-python',
+  },
+  keys = {
+    {
+      '<leader>td',
+      function()
+        require('dap-view').toggle()
+      end,
+      desc = '[T]oggle [D]ebug',
+    },
+    {
+      '<leader>ds',
+      function()
+        require('dap').continue()
+      end,
+      desc = '[D]ebug: [S]tart/Continue',
+    },
+    {
+      '<leader>di',
+      function()
+        require('dap').step_into()
+      end,
+      desc = '[D]ebug: Step [I]nto',
+    },
+    {
+      '<leader>do',
+      function()
+        require('dap').step_over()
+      end,
+      desc = '[D]ebug: Step [O]ver',
+    },
+    {
+      '<leader>du',
+      function()
+        require('dap').step_out()
+      end,
+      desc = 'Debug: Step O[u]t',
+    },
+    {
+      '<leader>db',
+      function()
+        require('dap').toggle_breakpoint()
+      end,
+      desc = '[D]ebug: Toggle [B]reakpoint',
+    },
+    {
+      '<leader>dc',
+      function()
+        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      desc = '[D]ebug: Set Breakpoint [C]ondition',
+    },
+  },
+  config = function()
+    local dap = require 'dap'
+    local dv = require 'dap-view'
+    -- Change breakpoint icons
+    vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
+    vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
+    local breakpoint_icons = vim.g.have_nerd_font
+        and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
+      or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
+    for type, icon in pairs(breakpoint_icons) do
+      local tp = 'Dap' .. type
+      local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
+      vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
+    end
+
+    dap.listeners.before.attach['dap-view-config'] = function()
+      dv.open()
+    end
+    dap.listeners.before.launch['dap-view-config'] = function()
+      dv.open()
+    end
+    dap.listeners.before.event_terminated['dap-view-config'] = function()
+      dv.close()
+    end
+    dap.listeners.before.event_exited['dap-view-config'] = function()
+      dv.close()
+    end
+
+    -- Install language specific config
+    require('dap-python').setup 'uv'
+
+    -- C/C++/Rust
+
+    dap.adapters.gdb = {
+      type = 'executable',
+      command = 'gdb',
+      args = { '--interpreter=dap', '--eval-command', 'set print pretty on' },
+    }
+
+    dap.configurations.c = {
+      {
+        name = 'Launch',
+        type = 'gdb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        args = {}, -- provide arguments if needed
+        cwd = '${workspaceFolder}',
+        stopAtBeginningOfMainSubprogram = false,
+      },
+      {
+        name = 'Select and attach to process',
+        type = 'gdb',
+        request = 'attach',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        pid = function()
+          local name = vim.fn.input 'Executable name (filter): '
+          return require('dap.utils').pick_process { filter = name }
+        end,
+        cwd = '${workspaceFolder}',
+      },
+      {
+        name = 'Attach to gdbserver :1234',
+        type = 'gdb',
+        request = 'attach',
+        target = 'localhost:1234',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+      },
+    }
+
+    dap.configurations.cpp = dap.configurations.c
+    dap.configurations.rust = dap.configurations.c
+  end,
+}

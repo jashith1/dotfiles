@@ -1,15 +1,46 @@
-require("config.lazy")
+-- leader key
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
+require 'options'
+require 'autocmds'
+require 'keymaps'
+require 'lsp'
+require 'code'
 
--- Default to 4 spaces everywhere
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
+if vim.g.vscode then
+  return
+end
 
--- Show line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  if vim.v.shell_error ~= 0 then
+    error('Error cloning lazy.nvim:\n' .. out)
+  end
+end ---@diagnostic disable-next-line: undefined-field
+vim.opt.rtp:prepend(lazypath)
 
--- yank to clipboard
-vim.opt.clipboard:append("unnamedplus")
+require('lazy').setup({
+  require 'colorscheme',
+  { import = 'plugins' },
+}, {
+  ui = {
+    icons = {},
+  },
+  performance = {
+    rtp = {
+      -- Stuff I don't use.
+      disabled_plugins = {
+        'gzip',
+        'netrwPlugin',
+        'rplugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
+  },
+})
