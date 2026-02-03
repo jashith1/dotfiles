@@ -43,7 +43,7 @@ return { -- Collection of various small independent plugins/modules
         show_help = '?',
         go_in_plus = '<cr>',
         go_out_plus = '<tab>',
-        synchronize = 's',
+        synchronize = 'S',
       },
       windows = {
         width_nofocus = 25,
