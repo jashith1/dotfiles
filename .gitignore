@@ -24,3 +24,4 @@ jellyfin/
 Session/
 QtProject.conf
 nextjs-nodejs/
+environment.d/

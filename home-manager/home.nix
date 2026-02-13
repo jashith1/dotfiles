@@ -73,4 +73,24 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.caelestia = {
+    enable = true;
+    systemd = {
+      #enable = false; # if you prefer starting from your compositor
+      target = "graphical-session.target";
+      environment = [];
+    };
+    settings = {
+      bar.status = {
+        #showBattery = false;
+      };
+      paths.wallpaperDir = "~/.config/wallpapers/astronaut.png";
+    };
+    cli = {
+      enable = true; # Also add caelestia-cli to path
+      settings = {
+        theme.enableGtk = false;
+      };
+    };
+  };
 }
