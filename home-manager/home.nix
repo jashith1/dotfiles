@@ -68,7 +68,11 @@
   #  /etc/profiles/per-user/bloppai/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    NIXOS_OZONE_WL = "1"; #wayland apps use ozone
+    grim="grimblast";
+    wl="wl-copy";
+    MOZ_ENABLE_WAYLAND = 0;
+    cmpl="g++ -std=c++17 -Wall -Wextra -pedantic-errors -Weffc++ -Wno-unused-parameter -fsanitize=undefined,address *.cpp"; #for CSCE120 cpp compiler options
   };
 
   # Let Home Manager install and manage itself.
