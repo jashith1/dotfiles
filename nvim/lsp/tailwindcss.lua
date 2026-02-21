@@ -65,6 +65,7 @@ return {
     'vue',
     'svelte',
     'templ',
+    'gd',
   },
   settings = {
     tailwindCSS = {
