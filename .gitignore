@@ -1,4 +1,5 @@
 chromium/
+mozilla/
 dconf/
 Code/
 gtk-3.0
@@ -28,6 +29,7 @@ environment.d/
 Ryujinx/
 discord/
 godot/
+fontconfig/
 
 //All of celestias shit
 BetterDiscord/
