@@ -66,6 +66,7 @@ return {
     'svelte',
     'templ',
     'gd',
+    'nix',
   },
   settings = {
     tailwindCSS = {
