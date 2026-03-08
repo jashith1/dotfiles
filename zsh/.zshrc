@@ -1,11 +1,21 @@
 #use `p10k configure` to retheme
 
 #for GPG signing keys to know what tty you're on
-export GPG_TTY=$(tty)
+export GPG_TTY=$TTY
 
 #pretty cool trick that tricks you into thinking shell start is instant by printing the first line
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+#enables completion definitions
+#-C flag skips rebuilding dump, so new/updated completion plugins will only take effect after 24hrs unless manually rebuilt
+#-C flag significantly speeds up zsh start times
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
 fi
 
 # Set the directory we want to store zinit and plugins
@@ -28,12 +38,12 @@ zinit ice depth=1
 zinit light romkatv/powerlevel10k
 
 # Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions #based on history
-zinit light Aloxaf/fzf-tab
+zinit wait lucid for \
+   zsh-users/zsh-syntax-highlighting \
+   zsh-users/zsh-completions \
+   zsh-users/zsh-autosuggestions \
+   Aloxaf/fzf-tab
 
-autoload -Uz compinit && compinit #enable completion definitions
 zinit cdreplay -q #use cache
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -48,7 +58,7 @@ bindkey '^n' history-search-forward
 alias ls='ls --color'
 alias c='clear'
 alias cat='bat'
-grim="grimblast";
+alias grim="grimblast";
 alias cmpl="g++ -std=c++17 -Wall -Wextra -pedantic-errors -Weffc++ -Wno-unused-parameter -fsanitize=undefined,address *.cpp"; #for CSCE120 cpp compiler options
 alias wl="wl-copy";
 alias ns="sudo nixos-rebuild switch --flake ~/nixos-config#bloppai";
@@ -86,4 +96,3 @@ testCpp() {
       make -C tests -j12 run/$1
    fi
 }
-
