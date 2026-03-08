@@ -40,12 +40,14 @@ zinit cdreplay -q #use cache
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 #keyBindings
+bindkey '^y' autosuggest-accept #accept suggestion 
 bindkey '^p' history-search-backward #enforces prefix
 bindkey '^n' history-search-forward
 
 #aliases 
 alias ls='ls --color'
 alias c='clear'
+alias cat='bat'
 grim="grimblast";
 alias cmpl="g++ -std=c++17 -Wall -Wextra -pedantic-errors -Weffc++ -Wno-unused-parameter -fsanitize=undefined,address *.cpp"; #for CSCE120 cpp compiler options
 alias wl="wl-copy";
