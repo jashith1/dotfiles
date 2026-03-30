@@ -2,13 +2,15 @@ return {
   'nvim-java/nvim-java',
   config = function()
     require('java').setup()
-    require('lspconfig').jdtls.setup({
-      -- Add 'devenv.nix' to the root detection patterns
-      root_dir = require('lspconfig.util').root_pattern('devenv.nix', 'shell.nix', '.git'),
-      
+
+    -- New API: replaces require('lspconfig').jdtls.setup(...)
+    vim.lsp.config('jdtls', {
+      root_dir = function(fname)
+        return vim.fs.root(fname, { 'devenv.nix', 'shell.nix', '.git' })
+      end,
+
       settings = {
         java = {
-          -- Helps with errors in single-file homeworks
           project = {
             importHint = true,
             referencedLibraries = { "lib/**/*.jar" },
@@ -16,5 +18,7 @@ return {
         },
       },
     })
+
+    vim.lsp.enable('jdtls')
   end,
 }
