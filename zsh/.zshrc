@@ -66,6 +66,7 @@ alias ns="sudo nixos-rebuild switch --flake ~/nixos-config#bloppai";
 alias nb="sudo nixos-rebuild build --flake ~/nixos-config#bloppai";
 alias ne="nvim ~/nixos-config/"
 alias lg="lazygit";
+alias top="btop";
 
 #history settings
 HISTSIZE=5000
