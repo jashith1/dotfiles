@@ -57,6 +57,7 @@ bindkey '^n' history-search-forward
 #aliases 
 alias ls='ls --color'
 alias c='clear'
+alias t='tmux'
 alias cat='bat'
 alias grim="grimblast";
 alias cmpl="g++ -std=c++17 -Wall -Wextra -pedantic-errors -Weffc++ -Wno-unused-parameter -fsanitize=undefined,address *.cpp"; #for CSCE120 cpp compiler options
