@@ -38,8 +38,9 @@ obsidian/
 sqlitebrowser/
 result/
 Motrix/
+QtProject/
 
-//All of celestias shit
+//Managed by Caelestia
 BetterDiscord/
 Equicord/
 Vencord/
@@ -53,7 +54,7 @@ qt5ct/
 qt6ct/
 spicetify/
 vesktop/
-
+btop/
 
 //managed by home manager
 bat/
