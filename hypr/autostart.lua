@@ -4,5 +4,5 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("[workspace 4 silent] " .. MusicPlayer)
 
     -- TODO: find out why this is using sleep lol
-    hl.exec_cmd("sleep 2 && caelestia-shell")
+    hl.exec_cmd("sleep 1 && caelestia-shell")
 end)

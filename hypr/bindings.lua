@@ -79,9 +79,11 @@ hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("test-sddm-silent"))
 -- Laptop Screen Toggle
 --hl.bind(mainMod .. " + ALT + 1", hl.dsp.exec_cmd("hyprctl keyword monitor 'eDP-1,1920x1200@120,auto,1.2' && hyprctl keyword monitor 'eDP-2,1920x1200@120,auto,1.2'"))
 hl.bind(mainMod .. " + ALT + 1", function()
-    hl.monitor({ output = "eDP-1", mode = "1920x1200@120", position = "auto", scale = 1.2 })
-    hl.monitor({ output = "eDP-2", mode = "1920x1200@120", position = "auto", scale = 1.2 })
+    hl.timer(function()
+        hl.dispatch(hl.dsp.exec_cmd("hyprctl reload"))
+    end, { timeout = 10, type = "oneshot" })
 end)
+
 hl.bind(mainMod .. " + ALT + 2", function()
     hl.monitor({ output = "eDP-1", disabled = true })
     hl.monitor({ output = "eDP-2", disabled = true })
