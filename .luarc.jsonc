@@ -1,0 +1,8 @@
+{
+  "workspace": {
+    "library": [
+      "/usr/share/hypr/stubs", //for generic distro
+      "/run/current-system/sw/share/hypr/stubs" //for nixos :heart_face:
+    ]
+  }
+}
