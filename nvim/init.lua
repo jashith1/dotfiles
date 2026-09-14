@@ -320,6 +320,12 @@ do
     },
   }
 
+  vim.pack.add { gh 'windwp/nvim-autopairs' }
+  require('nvim-autopairs').setup {}
+
+  vim.pack.add { gh 'windwp/nvim-ts-autotag' }
+  require('nvim-ts-autotag').setup()
+
   -- [[ Colorscheme ]]
   -- You can easily change to a different colorscheme.
   -- Change the name of the colorscheme plugin below, and then
@@ -640,10 +646,20 @@ do
   --  See `:help lsp-config` for information about keys and how to configure
   ---@type table<string, vim.lsp.Config>
   local servers = {
-    -- clangd = {},
+    clangd = {},
     -- gopls = {},
     pyright = {},
-    -- rust_analyzer = {},
+
+    html = {},
+    cssls = {},
+    ts_ls = {},
+
+    rust_analyzer = {},
+
+    emmet_language_server = {
+      filetypes = { 'html' },
+    },
+
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
     --    https://github.com/pmizio/typescript-tools.nvim
@@ -681,6 +697,18 @@ do
       settings = {
         Lua = {
           format = { enable = false }, -- Disable formatting (formatting is done by stylua)
+        },
+      },
+    },
+
+    texlab = {
+      settings = {
+        texlab = {
+          build = {
+            executable = 'pdflatex',
+            args = { '-interaction=nonstopmode', '-synctex=1', '%f' },
+            onSave = true, -- Compiles automatically whenever you write/save (:w)
+          },
         },
       },
     },
