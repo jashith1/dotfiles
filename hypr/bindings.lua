@@ -34,6 +34,7 @@ hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.swap({ direction = "down" })
 
 -- Fullscreen and Maximize
 hl.bind("F11", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
 -- Resize Window (binde -> repeating = true)
