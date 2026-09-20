@@ -1,4 +1,4 @@
---[[
+--[[init
     If you don't know anything about Lua, I recommend taking some time to read through
     a guide. One possible example which will only take 10-15 minutes:
       - https://learnxinyminutes.com/docs/lua/
@@ -363,6 +363,16 @@ do
     -- Used for backwards compatibility with plugins that require `nvim-web-devicons` (e.g. telescope.nvim)
     MiniIcons.mock_nvim_web_devicons()
   end
+
+  -- File explorer. Open the directory containing the current file with <leader>e.
+  require('mini.files').setup({
+    options = {
+      use_as_default_explorer = false,
+    },
+  })
+  vim.keymap.set('n', '<leader>e', function()
+    MiniFiles.open(vim.api.nvim_buf_get_name(0), true)
+  end, { desc = 'Open file explorer' })
 
   -- Better Around/Inside textobjects
   --
