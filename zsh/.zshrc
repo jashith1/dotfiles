@@ -56,6 +56,7 @@ zinit cdreplay -q #use cache
 bindkey '^y' autosuggest-accept #accept suggestion 
 bindkey '^p' history-search-backward #enforces prefix
 bindkey '^n' history-search-forward
+bindkey -e
 
 #aliases 
 alias ls='ls --color'
