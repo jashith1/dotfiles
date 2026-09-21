@@ -71,6 +71,7 @@ alias nu="cd ~/nixos-config/ && sudo nix flake update";
 alias ne="nvim ~/nixos-config/"
 alias lg="lazygit";
 alias top="btop";
+alias del="trash-put";
 
 #history settings
 HISTSIZE=5000
