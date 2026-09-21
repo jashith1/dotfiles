@@ -8,6 +8,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+#use emacs keybinds
+bindkey -e #do this first cuz other plugins need to override later
+
 #enables completion definitions
 #-C flag skips rebuilding dump, so new/updated completion plugins will only take effect after 24hrs unless manually rebuilt
 #-C flag significantly speeds up zsh start times
@@ -56,7 +59,6 @@ zinit cdreplay -q #use cache
 bindkey '^y' autosuggest-accept #accept suggestion 
 bindkey '^p' history-search-backward #enforces prefix
 bindkey '^n' history-search-forward
-bindkey -e
 
 #aliases 
 alias ls='ls --color'
