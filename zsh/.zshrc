@@ -4,9 +4,11 @@
 export GPG_TTY=$TTY
 
 #pretty cool trick that tricks you into thinking shell start is instant by printing the first line
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
 
 #use emacs keybinds
 bindkey -e #do this first cuz other plugins need to override later
