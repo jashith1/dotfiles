@@ -24,6 +24,10 @@ hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 hl.bind("ALT + Tab", hl.dsp.window.cycle_next())
 
 -- Swapping Windows
@@ -45,9 +49,9 @@ hl.bind(mainMod .. " + CTRL + down", hl.dsp.window.resize({ x = 0, y = 50, relat
 
 -- Switch Workspaces & Move Windows (Keys 1-9, 0)
 for i = 1, 10 do
-    local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	local key = i % 10 -- 10 maps to key 0
+	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Workspace Relative Bracket Navigation
@@ -61,8 +65,16 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind("XF86AudioStop", hl.dsp.exec_cmd("playerctl stop"), { locked = true })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"), { locked = true, repeating = true })
+hl.bind(
+	"XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioLowerVolume",
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"),
+	{ locked = true, repeating = true }
+)
 
 -- 60% Keyboard Media Binds
 hl.bind("CTRL + SHIFT + L", hl.dsp.exec_cmd("playerctl next"))
@@ -80,14 +92,14 @@ hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("test-sddm-silent"))
 -- Laptop Screen Toggle
 --hl.bind(mainMod .. " + ALT + 1", hl.dsp.exec_cmd("hyprctl keyword monitor 'eDP-1,1920x1200@120,auto,1.2' && hyprctl keyword monitor 'eDP-2,1920x1200@120,auto,1.2'"))
 hl.bind(mainMod .. " + ALT + 1", function()
-    hl.timer(function()
-        hl.dispatch(hl.dsp.exec_cmd("hyprctl reload"))
-    end, { timeout = 10, type = "oneshot" })
+	hl.timer(function()
+		hl.dispatch(hl.dsp.exec_cmd("hyprctl reload"))
+	end, { timeout = 10, type = "oneshot" })
 end)
 
 hl.bind(mainMod .. " + ALT + 2", function()
-    hl.monitor({ output = "eDP-1", disabled = true })
-    hl.monitor({ output = "eDP-2", disabled = true })
+	hl.monitor({ output = "eDP-1", disabled = true })
+	hl.monitor({ output = "eDP-2", disabled = true })
 end)
 
 -- Brightness
