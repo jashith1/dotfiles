@@ -114,7 +114,6 @@ do
   vim.opt.softtabstop = 4
   vim.opt.shiftwidth = 4
   vim.opt.expandtab = true --converts tabs to spaces
-
 end
 
 -- ============================================================
@@ -346,8 +345,8 @@ do
   vim.cmd.colorscheme 'tokyonight-night'
 
   -- auto complete pair
-  vim.pack.add({ gh('windwp/nvim-autopairs') })
-  require('nvim-autopairs').setup({})
+  vim.pack.add { gh 'windwp/nvim-autopairs' }
+  require('nvim-autopairs').setup {}
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
@@ -365,14 +364,12 @@ do
   end
 
   -- File explorer. Open the directory containing the current file with <leader>e.
-  require('mini.files').setup({
+  require('mini.files').setup {
     options = {
       use_as_default_explorer = false,
     },
-  })
-  vim.keymap.set('n', '<leader>e', function()
-    MiniFiles.open(vim.api.nvim_buf_get_name(0), true)
-  end, { desc = 'Open file explorer' })
+  }
+  vim.keymap.set('n', '<leader>e', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), true) end, { desc = 'Open file explorer' })
 
   -- Better Around/Inside textobjects
   --
@@ -666,6 +663,8 @@ do
 
     rust_analyzer = {},
 
+    jdtls = {},
+
     emmet_language_server = {
       filetypes = { 'html' },
     },
@@ -782,7 +781,7 @@ do
     -- You can also specify external formatters in here.
     formatters_by_ft = {
       rust = { 'rustfmt' },
-      python = { "ruff_format" },
+      python = { 'ruff_format' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
