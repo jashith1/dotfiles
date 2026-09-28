@@ -35,6 +35,7 @@ local function update_monitors()
         mode = "3840x2160@240",
         position = "auto",
         scale = 1.666,
+        -- scale = 1.333,
     })
 
     -- Configure laptop monitors (Disabled if an external monitor is plugged in)
