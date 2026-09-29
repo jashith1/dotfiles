@@ -1,8 +1,12 @@
 local mainMod = "SUPER"
 local terminal = "kitty"
-local forceWayland = "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+local forceWayland = " --enable-features=UseOzonePlatform --ozone-platform=wayland"
 local browser = "firefox"
-local altBrowser = "chromium " .. forceWayland
+local altBrowser = "chromium" .. forceWayland
+local function launchWebApp(address)
+	local webAppCommand = string.format("chromium --app='%s' --start-fullscreen", address);
+	return hl.dsp.exec_cmd(webAppCommand);
+end
 
 -- Shell / Environment Toggles
 hl.bind(mainMod .. " + ALT + C", hl.dsp.exec_cmd("pkill quickshell; pkill hyprpaper; pkill waybar; caelestia-shell"))
@@ -18,6 +22,8 @@ hl.bind(mainMod .. " + W", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("spotify " .. forceWayland))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("nautilus -w"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("tor-browser"))
+-- web apps
+hl.bind(mainMod .. " + SHIFT + M", launchWebApp("https://music.youtube.com"))
 
 -- Changing Focus
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
