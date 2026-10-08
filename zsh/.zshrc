@@ -110,3 +110,12 @@ testCpp() {
       make -C tests -j12 run/$1
    fi
 }
+
+#if no arguments supplied, run in zsh
+nix-shell() {
+ if (( $# == 0 )); then
+   command nix-shell --run zsh
+ else
+   command nix-shell "$@"
+ fi
+}
