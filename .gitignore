@@ -42,6 +42,8 @@ Motrix/
 QtProject/
 astro/
 .wrangler/
+user-dirs.conf
+user-dirs.dirs
 
 //Managed by Caelestia
 BetterDiscord/
