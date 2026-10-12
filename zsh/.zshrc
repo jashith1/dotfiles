@@ -119,3 +119,12 @@ nix-shell() {
    command nix-shell "$@"
  fi
 }
+
+# Run plain `nix develop` in zsh.
+nix() {
+ if [[ "$1" == develop && $# == 1 ]]; then
+   command nix develop --command zsh
+ else
+   command nix "$@"
+ fi
+}
