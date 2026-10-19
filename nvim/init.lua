@@ -128,6 +128,10 @@ do
   --  See `:help hlsearch`
   vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+  -- Keep a visual selection active after changing its indentation.
+  vim.keymap.set('x', '>', '>gv', { desc = 'Indent selection and keep it selected' })
+  vim.keymap.set('x', '<', '<gv', { desc = 'Outdent selection and keep it selected' })
+
   -- Diagnostic Config & Keymaps
   --  See `:help vim.diagnostic.Opts`
   vim.diagnostic.config {
