@@ -41,6 +41,7 @@ result/
 Motrix/
 QtProject/
 astro/
+anthropic/
 .wrangler/
 user-dirs.conf
 user-dirs.dirs
@@ -65,3 +66,4 @@ btop/
 bat/
 direnv/
 git/
+gh/
