@@ -45,6 +45,7 @@ anthropic/
 .wrangler/
 user-dirs.conf
 user-dirs.dirs
+chromium-headless/
 
 //Managed by Caelestia
 BetterDiscord/
