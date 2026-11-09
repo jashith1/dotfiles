@@ -70,8 +70,8 @@ alias cat='bat'
 alias grim="grimblast";
 alias cmpl="g++ -std=c++17 -Wall -Wextra -pedantic-errors -Weffc++ -Wno-unused-parameter -fsanitize=undefined,address *.cpp"; #for CSCE120 cpp compiler options
 alias wl="wl-copy";
-alias ns="sudo nixos-rebuild switch --flake ~/nixos-config#bloppai";
-alias nb="sudo nixos-rebuild build --flake ~/nixos-config#bloppai";
+alias ns="sudo nixos-rebuild switch --flake ~/nixos-config";
+alias nb="sudo nixos-rebuild build --flake ~/nixos-config";
 alias nu="cd ~/nixos-config/ && sudo nix flake update";
 alias ne="nvim ~/nixos-config/"
 alias lg="lazygit";
