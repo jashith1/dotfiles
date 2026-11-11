@@ -41,7 +41,12 @@ hl.config({
 
     animations = {
         enabled = true,
-    }
+    },
+
+    render = {
+        -- native-wayland chromium/electron apps (spotify via super+m) declare hdr and make hyprland switch the monitor to hdr
+        cm_auto_hdr = 0,
+    },
 
 })
 
