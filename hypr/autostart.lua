@@ -1,5 +1,6 @@
 hl.on("hyprland.start", function()
     hl.exec_cmd("[workspace 1 silent] " .. Terminal)
     hl.exec_cmd("[workspace 2 silent] " .. Browser)
+    hl.exec_cmd("hypridle")
     -- hl.exec_cmd("[workspace 4 silent] sleep 1 && " .. MusicPlayer)
 end)
