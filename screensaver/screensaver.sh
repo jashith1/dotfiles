@@ -13,10 +13,14 @@
 # ── Settings ─────────────────────────────────────────────────────────────────
 CLASS=screensaver                 # kitty window class
 ART="${SCREENSAVER_ART:-${XDG_CONFIG_HOME:-$HOME/.config}/screensaver/art.txt}"
-FRAME_RATE=60
+FRAME_RATE=${SCREENSAVER_FRAME_RATE:-60}
+HOLD=${SCREENSAVER_HOLD:-2}          # seconds to show the finished art before the next effect
+EFFECT_ARGS=(--random-effect)     # e.g. SCREENSAVER_EFFECT=decrypt to pin one effect
 GRACE=1                           # seconds to ignore the mouse after launch
 MOVE_THRESHOLD=3                  # pixels of cursor travel that count as movement
 FIT_MARGIN=95                     # art fills this % of the screen when scaled
+
+[[ -n ${SCREENSAVER_EFFECT:-} ]] && EFFECT_ARGS=("$SCREENSAVER_EFFECT")
 
 SELF=$(readlink -f "${BASH_SOURCE[0]}")
 # Matches only the kitty processes we start, not anything that mentions the class.
@@ -35,10 +39,25 @@ KITTY_OPTS=(
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
+# Timestamped trace to $SCREENSAVER_DEBUG (no-op when unset).
+debug() { [[ -n ${SCREENSAVER_DEBUG:-} ]] && echo "$EPOCHREALTIME $*" >> "$SCREENSAVER_DEBUG"; return 0; }
+
 # Show or hide the mouse pointer (Hyprland's Lua config, with legacy fallback).
 set_pointer_hidden() { # $1: true | false
   hyprctl eval "hl.config({ cursor = { invisible = $1 } })" &>/dev/null ||
     hyprctl keyword cursor:invisible "$1" &>/dev/null
+}
+
+# Block until the terminal grid stops changing (fullscreen / font reflow done),
+# instead of sleeping a fixed time. Gives up after ~2s.
+wait_for_stable_size() {
+  local previous='' current stable=0 attempt
+  for ((attempt = 0; attempt < 40 && stable < 3; attempt++)); do
+    current="$(tput lines)x$(tput cols)"
+    if [[ $current == "$previous" ]]; then ((stable++)); else stable=0; fi
+    previous=$current
+    sleep 0.05
+  done
 }
 
 # Scale kitty's font so the art fills the terminal. Cell size is proportional to
@@ -46,6 +65,7 @@ set_pointer_hidden() { # $1: true | false
 fit_font() {
   command -v kitten &>/dev/null || return 0
   local art_w art_h cols rows by_width by_height scale
+  wait_for_stable_size
   art_w=$(wc -L < "$ART")
   art_h=$(wc -l < "$ART")
   ((art_w > 0 && art_h > 0)) || return 0
@@ -58,8 +78,10 @@ fit_font() {
   scale=$((scale * FIT_MARGIN / 100))
 
   printf -v scale '%d.%03d' $((scale / 1000)) $((scale % 1000))
+  debug "fit: grid ${cols}x${rows} art=${art_w}x${art_h} scale=$scale"
   kitten @ set-font-size "*$scale" &>/dev/null
-  sleep 0.3 # let the terminal reflow to its new grid
+  wait_for_stable_size
+  debug "fit: done, grid $(tput cols)x$(tput lines)"
 }
 
 # Loop random effects until killed. Each pass clears the screen first so no
@@ -67,9 +89,12 @@ fit_font() {
 animate() {
   while :; do
     printf '\033[?25l\033[2J\033[H'
-    tte --random-effect --frame-rate "$FRAME_RATE" --no-restore-cursor --no-eol \
+    debug "animate: tte starting"
+    # A named effect is a subcommand, so it must come after all options.
+    tte --frame-rate "$FRAME_RATE" --no-restore-cursor --no-eol \
       --canvas-width 0 --canvas-height "$(tput lines)" \
-      --anchor-canvas c --anchor-text c < "$ART"
+      --anchor-canvas c --anchor-text c "${EFFECT_ARGS[@]}" < "$ART"
+    sleep "$HOLD"
   done
 }
 
@@ -81,9 +106,16 @@ launch() {
 
   # Hyprland uses the Lua config, so start windows with hl.exec_cmd and a
   # [monitor X] rule to place one on each display.
+  # Hyprland starts the windows, so they don't inherit our environment:
+  # forward SCREENSAVER_* overrides explicitly.
+  local name env_opts=()
+  for name in SCREENSAVER_ART SCREENSAVER_EFFECT SCREENSAVER_DEBUG SCREENSAVER_FRAME_RATE SCREENSAVER_HOLD; do
+    [[ -n ${!name:-} ]] && env_opts+=(-o "env=$name=${!name}")
+  done
+
   local monitor
   for monitor in $(hyprctl monitors -j | jq -r '.[].name'); do
-    hyprctl eval "hl.exec_cmd(\"[monitor $monitor] kitty --class $CLASS ${KITTY_OPTS[*]} -e bash $SELF --run\")" &>/dev/null
+    hyprctl eval "hl.exec_cmd(\"[monitor $monitor] kitty --class $CLASS ${KITTY_OPTS[*]} ${env_opts[*]} -e bash $SELF --run\")" &>/dev/null
   done
 }
 
@@ -104,19 +136,22 @@ run() {
   }
   trap cleanup EXIT INT TERM HUP
 
+  debug "run: start"
   set_pointer_hidden true
   printf '\033[?25l' # hide the terminal's text cursor
-
-  # Grace period: ignore mouse noise from the window opening, but a key still exits.
-  read -rsn1 -t "$GRACE" && exit 0
+  debug "run: pointer hidden"
 
   fit_font
 
-  local start_x start_y x y
-  IFS=', ' read -r start_x start_y < <(hyprctl cursorpos)
-
+  debug "run: starting animation"
   animate &
   animation_pid=$!
+
+  # Grace period: ignore mouse noise from the window opening (a key still exits),
+  # then remember where the pointer is. The animation is already playing.
+  read -rsn1 -t "$GRACE" && exit 0
+  local start_x start_y x y
+  IFS=', ' read -r start_x start_y < <(hyprctl cursorpos)
 
   # Watch for input. `read` times out after 0.1s (non-zero) unless a key arrives.
   while :; do
