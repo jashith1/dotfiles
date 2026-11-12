@@ -1,50 +1,49 @@
--- Helper function to check DRM connection status (matches 'connected' strictly)
-local function is_any_connected(outputs)
-    for _, name in ipairs(outputs) do
-        local handle = io.popen("cat /sys/class/drm/*" .. name .. "/status 2>/dev/null")
-        if handle then
-            local result = handle:read("*a")
-            handle:close()
-            if result:match("^connected") then
-                return true
-            end
+-- Returns the names of all connected external outputs (anything that isn't eDP/Writeback)
+local function connected_externals()
+    local found = {}
+    local handle = io.popen("grep -l '^connected' /sys/class/drm/card*-*/status 2>/dev/null")
+    if not handle then return found end
+    for path in handle:lines() do
+        local name = path:match("/card%d+%-(.-)/status$")
+        if name and not name:match("^eDP") and not name:match("^Writeback") then
+            table.insert(found, name)
         end
     end
-    return false
+    handle:close()
+    return found
 end
 
--- Helper function to configure a group of monitors
-local function configure_monitors(outputs, config)
-    for _, name in ipairs(outputs) do
-        local cfg = {}
-        for k, v in pairs(config) do cfg[k] = v end
-        cfg.output = name
-        hl.monitor(cfg)
-    end
-end
+-- Per-output scale overrides for external monitors (default 1)
+local external_scales = {
+    ["DP-1"] = 1.666,
+    ["DP-2"] = 1.666,
+}
 
 -- Core monitor layout handler
 local function update_monitors()
-    local external_displays = { "DP-1", "DP-2" }
-    local laptop_displays   = { "eDP-1", "eDP-2" }
+    local laptop_displays = { "eDP-1", "eDP-2" }
+    local externals = connected_externals()
 
-    local external_connected = is_any_connected(external_displays)
+    -- External monitors: highest resolution, then highest refresh rate
+    for _, name in ipairs(externals) do
+        hl.monitor({
+            output = name,
+            mode = "highres",
+            position = "auto",
+            scale = external_scales[name] or 1,
+        })
+    end
 
-    -- Configure external monitors
-    configure_monitors(external_displays, {
-        mode = "3840x2160@240",
-        position = "auto",
-        scale = 1.666,
-        -- scale = 1.333,
-    })
-
-    -- Configure laptop monitors (Disabled if an external monitor is plugged in)
-    configure_monitors(laptop_displays, {
-        mode = "2560x1600@120",
-        disabled = external_connected,
-        position = "auto",
-        scale = 1.666,
-    })
+    -- Laptop monitors: disabled whenever an external monitor is plugged in
+    for _, name in ipairs(laptop_displays) do
+        hl.monitor({
+            output = name,
+            mode = "2560x1600@120",
+            disabled = #externals > 0,
+            position = "auto",
+            scale = 1.666,
+        })
+    end
 
     -- Fallback
     hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
